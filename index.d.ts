@@ -30,7 +30,7 @@ type Mp = {
 	objects: ObjectMpPool;
 	vehicles: VehicleMpPool;
 	config: ConfigMp,
-	world: WorldMp;
+	world: WorldMp & SharedWorldMp;
 
 	Event: { 
 		new(eventName: RageEnums.EventKey | string, callback: (...args: any[]) => void): EventMp 
@@ -503,3 +503,14 @@ interface Function {
 // -------------------------------------------------------------------------
 
 declare const mp: Mp;
+
+// -------------------------------------------------------------------------
+// External MP types
+// -------------------------------------------------------------------------
+/**
+ * Shared World Data 1.1.0 (https://rage.mp/files/file/178-shared-world-data/)
+ */
+interface SharedWorldMp {
+	data: any;
+	setData(object: object): void;
+}
