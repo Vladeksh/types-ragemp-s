@@ -33,7 +33,7 @@ type Mp = {
 	objects: ObjectMpPool;
 	vehicles: VehicleMpPool;
 	config: ConfigMp,
-	world: WorldMp;
+	world: WorldMp & SharedWorldMp & ZoneApi;
 
 	Event: { 
 		new(eventName: RageEnums.EventKey | string, callback: (...args: any[]) => void): EventMp 
@@ -542,3 +542,38 @@ interface Function {
 // -------------------------------------------------------------------------
 
 declare const mp: Mp;
+
+// -------------------------------------------------------------------------
+// External MP types
+// -------------------------------------------------------------------------
+/**
+ * Shared World Data 1.1.0 (https://rage.mp/files/file/178-shared-world-data/)
+ */
+interface SharedWorldMp {
+	data: any;
+	setData(object: object): void;
+}
+
+/**
+ * Zone API 1.1.0 (https://rage.mp/files/file/259-zone-api/)
+ */
+interface ZoneApi {
+	/**
+	 * Returns the name of the area/zone at specified coords, ignores heights.
+	 * @param  {object} coords An object with "x" and "y" properties.
+	 * @return {string}        Zone name.
+	 */
+	getNameOfZone2D(coords: Vector3Mp): string;
+	/**
+	 * Returns the name of the area/zone at specified coords.
+	 * @param  {object} coords An object with "x", "y" and "z" properties, such as mp.Vector3.
+	 * @return {string}        Zone name.
+	 */
+	getNameOfZone3D(coords: Vector3Mp): string;
+	/**
+	 * Returns the type of the area/zone at specified coords.
+	 * @param  {object} coords An object with "x" and "y" properties.
+	 * @return {string}        Zone type, either "city" or "countryside".
+	 */
+	getTypeOfZone(coords: Vector3Mp): string;
+}
