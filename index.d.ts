@@ -115,6 +115,8 @@ interface MarkerMp extends EntityMp {
 
 interface PedMp {
 	controller: PlayerMp;
+	getVariable(name: string): any | undefined;
+	setVariable(name: string, value: any): void;
 }
 
 interface ObjectMp extends EntityMp {
@@ -425,10 +427,11 @@ interface MarkerMpPool extends EntityMpPool<MarkerMp> {
 }
 
 interface PedMpPool extends EntityMpPool<PedMp> {
-	"new"(modelHash: number, position: Vector3Mp, options?: {
+	"new"(modelHash: RageEnums.Hashes.Ped | number, position: Vector3Mp, options?: {
 		dynamic: boolean,
-		frozen: boolean,
-		invincible: boolean
+		frozen?: boolean,
+		invincible?: boolean,
+		lockController?: boolean
 	}): PedMp;
 }
 
